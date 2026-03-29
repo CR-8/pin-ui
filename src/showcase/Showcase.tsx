@@ -54,7 +54,6 @@ const Showcase = () => {
     const wrapper = scrollRef.current
     if (!wrapper) return
     const scrollTop = wrapper.scrollTop
-    const height = wrapper.clientHeight
 
     let closest = ALL_COMPONENTS[0]
     let minDist = Infinity

@@ -1,182 +1,191 @@
 import { useState } from "react"
-import { X, Code2, Globe, AtSign, Video, Sun, Moon } from "lucide-react"
+import { Sun, Moon } from "lucide-react"
+
+// ─── Dispatch AI style ────────────────────────────────────────────────────────
+// Dark #1a1a1a bg, complex layout:
+// Top: left sidebar nav, center CTA heading + waitlist button, right arc art + PAGES/SOCIAL links
+// Bottom: large orange banner with stats + massive serif wordmark
+// Very bottom: dark bar with copyright + legal
+// ─────────────────────────────────────────────────────────────────────────────
 
 const FOOTER_DATA = {
-  brand: {
-    name: "Nexus",
-    description: "The platform for modern teams to ship faster.",
-    badge: "v3.0 now live →",
+  brand: "Dispatch",
+  sidebar: [
+    { num: "01", label: "Intro" },
+    { num: "02", label: "Capabilities" },
+    { num: "03", label: "Performance" },
+    { num: "04", label: "Features" },
+    { num: "05", label: "Integrations" },
+    { num: "06", label: "Pricing" },
+    { num: "07", label: "Testimonials" },
+    { num: "08", label: "Resources" },
+  ],
+  cta: {
+    badge: "Ready to ship support ops",
+    heading: ["Resolve tickets.", "Trigger actions."],
+    headingColors: ["white", "#f97316"],
+    description: "Connect your stack, set guardrails, and let Dispatch handle repetitive work—while your team stays in control.",
+    button: "Join Waitlist",
   },
-  newsletter: {
-    placeholder: "your@email.com",
-    cta: "Get updates",
+  pages: {
+    heading: "Pages",
+    links: ["Homepage", "Company", "Updates", "Waitlist", "Blog", "404"],
   },
-  columns: [
-    {
-      heading: "Platform",
-      links: [
-        { label: "Overview", href: "#" },
-        { label: "Analytics", href: "#" },
-        { label: "Automation", href: "#" },
-        { label: "Integrations", href: "#" },
-        { label: "API", href: "#" },
-        { label: "CLI", href: "#" },
-      ],
-    },
-    {
-      heading: "Solutions",
-      links: [
-        { label: "Startups", href: "#" },
-        { label: "Enterprise", href: "#" },
-        { label: "Agencies", href: "#" },
-        { label: "Freelancers", href: "#" },
-        { label: "Open Source", href: "#" },
-        { label: "Education", href: "#" },
-      ],
-    },
-    {
-      heading: "Resources",
-      links: [
-        { label: "Documentation", href: "#" },
-        { label: "Guides", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Changelog", href: "#" },
-        { label: "Community", href: "#" },
-        { label: "Status", href: "#" },
-      ],
-    },
-    {
-      heading: "Company",
-      links: [
-        { label: "About", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Press", href: "#" },
-        { label: "Partners", href: "#" },
-        { label: "Contact", href: "#" },
-        { label: "Investors", href: "#" },
-      ],
-    },
-    {
-      heading: "Legal",
-      links: [
-        { label: "Privacy", href: "#" },
-        { label: "Terms", href: "#" },
-        { label: "Security", href: "#" },
-        { label: "Cookies", href: "#" },
-        { label: "Licenses", href: "#" },
-        { label: "GDPR", href: "#" },
-      ],
-    },
+  social: {
+    heading: "Social",
+    links: ["Telegram", "Youtube", "Linkedin", "Discord", "Github", "X"],
+  },
+  stats: [
+    { label: "Agent Status", value: "Active" },
+    { label: "Tickets Solved", value: "12,745,012" },
   ],
-  social: [
-    { icon: X, label: "Twitter", href: "#" },
-    { icon: Code2, label: "GitHub", href: "#" },
-    { icon: Globe, label: "LinkedIn", href: "#" },
-    { icon: AtSign, label: "Instagram", href: "#" },
-    { icon: Video, label: "YouTube", href: "#" },
-  ],
-  copyright: "© 2024 Nexus Technologies, Inc. All rights reserved.",
-  legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Cookie Settings", href: "#" },
-  ],
+  description: "Dispatch is an AI operator for Support and Customer Ops. It resolves tickets, runs workflows, and keeps your CRM in sync, automatically, with full control.",
+  legal: ["All rights reserved", "Terms of use", "Privacy Policy"],
+  copyright: "© Dispatch AI, 2026",
 }
 
-export default function Footer_5() {
-  const [dark, setDark] = useState(false)
-  const [email, setEmail] = useState("")
+const ORANGE = "#f97316"
+const DARK = "#1a1a1a"
+const DARKER = "#141414"
 
-  const bg = dark ? "bg-[#0c0c0c]" : "bg-gray-50"
-  const card = dark ? "bg-[#141414] border-[#1e1e1e]" : "bg-white border-gray-200"
-  const text = dark ? "text-white" : "text-gray-900"
-  const muted = dark ? "text-gray-400" : "text-gray-500"
-  const subtle = dark ? "text-gray-600" : "text-gray-400"
-  const divider = dark ? "#1e1e1e" : "#e5e7eb"
-  const inputBg = dark ? "bg-[#1a1a1a] border-[#2a2a2a] text-white placeholder-gray-600" : "bg-gray-100 border-gray-200 text-gray-900 placeholder-gray-400"
+export default function Footer_5() {
+  const [dark, setDark] = useState(true)
+
+  const bg = dark ? DARK : "#f5f5f0"
+  const text = dark ? "white" : "#111"
+  const muted = dark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.4)"
+  const divider = dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)"
 
   return (
-    <div className={`h-full w-full ${bg} ${text}`}>
-      <footer className="max-w-7xl mx-auto px-6 py-14">
-        {/* Top bar: brand + newsletter */}
-        <div className={`flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-6 rounded-xl border mb-10 ${card}`}>
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-lg font-bold">{FOOTER_DATA.brand.name}</span>
-              <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${dark ? "bg-white/10 text-gray-300" : "bg-gray-100 text-gray-500"}`}>
-                {FOOTER_DATA.brand.badge}
-              </span>
-            </div>
-            <p className={`text-sm ${muted}`}>{FOOTER_DATA.brand.description}</p>
-          </div>
-          <div className="flex gap-2 w-full md:w-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={FOOTER_DATA.newsletter.placeholder}
-              className={`text-sm px-3 py-2 rounded-lg border outline-none w-full md:w-52 ${inputBg}`}
-            />
-            <button className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gray-900 hover:bg-gray-700 dark:bg-white dark:text-gray-900 transition-colors shrink-0"
-              style={{ background: dark ? "white" : "#111", color: dark ? "#111" : "white" }}>
-              {FOOTER_DATA.newsletter.cta}
-            </button>
-          </div>
-        </div>
+    <div className="h-full w-full overflow-auto" style={{ background: bg, fontFamily: "'Inter', sans-serif", color: text }}>
 
-        {/* 5-column link grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 pb-10 border-b" style={{ borderColor: divider }}>
-          {FOOTER_DATA.columns.map((col) => (
-            <div key={col.heading}>
-              <p className={`text-[11px] font-semibold uppercase tracking-widest mb-4 ${subtle}`}>
-                {col.heading}
-              </p>
-              <ul className="flex flex-col gap-2">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className={`text-[13px] transition-colors ${dark ? "text-gray-500 hover:text-white" : "text-gray-500 hover:text-gray-900"}`}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+      {/* ── Main content area ─────────────────────────────────────── */}
+      <div className="flex" style={{ borderBottom: `1px solid ${divider}` }}>
+
+        {/* Left sidebar */}
+        <div className="hidden md:flex flex-col gap-1 px-5 py-8 shrink-0" style={{ width: 140, borderRight: `1px solid ${divider}` }}>
+          {FOOTER_DATA.sidebar.map(item => (
+            <a key={item.num} href="#"
+              className="flex items-center gap-2 py-1.5 text-xs transition-opacity hover:opacity-100"
+              style={{ color: muted }}>
+              <span style={{ color: muted }}>{item.num}</span>
+              <span>{item.label}</span>
+            </a>
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <span className={`text-[12px] ${subtle}`}>{FOOTER_DATA.copyright}</span>
-            <div className="flex items-center gap-4">
-              {FOOTER_DATA.legal.map((item) => (
-                <a key={item.label} href={item.href} className={`text-[12px] transition-colors ${dark ? "text-gray-600 hover:text-gray-300" : "text-gray-400 hover:text-gray-700"}`}>
-                  {item.label}
-                </a>
-              ))}
-            </div>
+        {/* Center: CTA */}
+        <div className="flex-1 px-8 py-8 flex flex-col justify-between" style={{ borderRight: `1px solid ${divider}` }}>
+          {/* Badge */}
+          <div className="flex items-center gap-2 mb-6">
+            <span className="text-xs" style={{ color: ORANGE }}>◇</span>
+            <span className="text-xs" style={{ color: muted }}>{FOOTER_DATA.cta.badge}</span>
+            <div className="flex-1 border-t border-dotted ml-2" style={{ borderColor: divider }} />
           </div>
 
-          <div className="flex items-center gap-3">
-            {FOOTER_DATA.social.map(({ icon: Icon, label, href }) => (
-              <a key={label} href={href} aria-label={label} className={`transition-colors ${dark ? "text-gray-600 hover:text-white" : "text-gray-400 hover:text-gray-900"}`}>
-                <Icon size={16} />
-              </a>
+          {/* Heading */}
+          <div className="mb-6">
+            {FOOTER_DATA.cta.heading.map((line, i) => (
+              <h2 key={i} className="text-3xl font-bold leading-tight" style={{ color: FOOTER_DATA.cta.headingColors[i] }}>
+                {line}
+              </h2>
             ))}
-            <div className="w-px h-4" style={{ backgroundColor: divider }} />
-            <button
-              onClick={() => setDark(!dark)}
-              aria-label="Toggle dark mode"
-              className={`p-1.5 rounded-md transition-colors ${dark ? "text-gray-500 hover:text-white hover:bg-white/10" : "text-gray-400 hover:text-gray-900 hover:bg-gray-200"}`}
-            >
-              {dark ? <Sun size={14} /> : <Moon size={14} />}
-            </button>
+            <p className="text-sm mt-4 leading-relaxed max-w-sm" style={{ color: muted }}>
+              {FOOTER_DATA.cta.description}
+            </p>
+          </div>
+
+          {/* CTA button */}
+          <button className="w-full py-3 text-sm font-semibold uppercase tracking-widest rounded-sm transition-opacity hover:opacity-80"
+            style={{ background: "#c8b89a", color: "#111" }}>
+            {FOOTER_DATA.cta.button}
+          </button>
+        </div>
+
+        {/* Right: arc art + links */}
+        <div className="hidden lg:flex flex-col" style={{ width: 320 }}>
+          {/* Arc decoration */}
+          <div className="h-32 relative overflow-hidden" style={{ borderBottom: `1px solid ${divider}` }}>
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 120" fill="none">
+              {[0,1,2,3,4,5].map(i => (
+                <path key={i} d={`M ${-20 + i*30} 120 Q ${160} ${-60 + i*20} ${340 - i*30} 120`}
+                  stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none"/>
+              ))}
+            </svg>
+          </div>
+
+          {/* Pages + Social */}
+          <div className="flex gap-8 px-6 py-8 flex-1">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: muted }}>
+                {FOOTER_DATA.pages.heading}
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {FOOTER_DATA.pages.links.map(link => (
+                  <a key={link} href="#" className="text-sm transition-opacity hover:opacity-60" style={{ color: text }}>
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-4" style={{ color: muted }}>
+                {FOOTER_DATA.social.heading}
+              </p>
+              <div className="flex flex-col gap-2.5">
+                {FOOTER_DATA.social.links.map(link => (
+                  <a key={link} href="#" className="text-sm transition-opacity hover:opacity-60" style={{ color: text }}>
+                    {link}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
+      </div>
+
+      {/* ── Orange banner ─────────────────────────────────────────── */}
+      <div className="relative overflow-hidden" style={{ background: ORANGE, minHeight: 160 }}>
+        {/* Stats row */}
+        <div className="flex items-start gap-12 px-8 pt-6 pb-2 relative z-10">
+          {FOOTER_DATA.stats.map(stat => (
+            <div key={stat.label}>
+              <p className="text-2xl font-black" style={{ color: "#111" }}>{stat.value}</p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(0,0,0,0.5)" }}>{stat.label}</p>
+            </div>
+          ))}
+          <div className="flex-1" />
+          <p className="text-sm max-w-xs leading-relaxed pt-1" style={{ color: "rgba(0,0,0,0.6)" }}>
+            {FOOTER_DATA.description}
+          </p>
+        </div>
+
+        {/* Massive wordmark */}
+        <div className="px-4 pb-0 overflow-hidden">
+          <span className="font-black leading-none select-none block"
+            style={{ fontSize: "clamp(60px, 14cqw, 120px)", color: "rgba(0,0,0,0.25)", letterSpacing: "-0.02em", fontFamily: "Georgia, serif" }}>
+            {FOOTER_DATA.brand}
+          </span>
+        </div>
+
+        {/* Diamond icons */}
+        <span className="absolute left-4 bottom-4 text-black/30 text-lg">◇</span>
+        <span className="absolute right-1/2 bottom-8 text-black/20 text-sm">◇</span>
+      </div>
+
+      {/* ── Bottom bar ────────────────────────────────────────────── */}
+      <div className="flex items-center justify-between px-8 py-4" style={{ background: DARKER, borderTop: `1px solid ${divider}` }}>
+        <span className="text-xs" style={{ color: muted }}>{FOOTER_DATA.copyright}</span>
+        <div className="flex items-center gap-6">
+          {FOOTER_DATA.legal.map(item => (
+            <a key={item} href="#" className="text-xs transition-opacity hover:opacity-80" style={{ color: muted }}>{item}</a>
+          ))}
+          <span className="text-xs" style={{ color: ORANGE }}>◇</span>
+        </div>
+        <button onClick={() => setDark(d => !d)} style={{ color: muted }}>
+          {dark ? <Sun size={13} /> : <Moon size={13} />}
+        </button>
+      </div>
     </div>
   )
 }

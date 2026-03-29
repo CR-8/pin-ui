@@ -69,7 +69,7 @@ const Sidebar = ({ selected, onSelect, expanded, onToggle }: Props) => {
       >
         <div className="relative h-full w-full flex flex-col items-center justify-center gap-[4px] py-10">
 
-          {TICKS.map((tick, i) => {
+          {TICKS.map((tick, _i) => {
             if (tick.kind === "section") {
               const key = `section-${tick.categoryId}`
               const isHovered = hoveredTick === key

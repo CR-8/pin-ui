@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Lenis from 'lenis'
-import { Menu, X, AtSign, Send, ArrowUpRight } from 'lucide-react'
+import { X, AtSign, Send, ArrowUpRight } from 'lucide-react'
 
 gsap.registerPlugin(useGSAP)
 

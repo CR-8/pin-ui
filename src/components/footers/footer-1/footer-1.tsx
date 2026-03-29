@@ -1,92 +1,99 @@
 import { useState } from "react"
-import { X, Code2, Globe, AtSign, Sun, Moon } from "lucide-react"
+import { Sun, Moon, ArrowUpRight } from "lucide-react"
+
+// ─── Retool-style footer ──────────────────────────────────────────────────────
+// Dark #1a1a1a bg, blueprint grid + sky image panels at top,
+// 5-column link grid, massive brand wordmark at bottom
+// ─────────────────────────────────────────────────────────────────────────────
 
 const FOOTER_DATA = {
-  brand: {
-    name: "Acme",
-    description: "Building the future of developer tooling, one component at a time.",
-  },
+  brand: { name: "Retool", icon: "⊞" },
   columns: [
     {
-      heading: "Product",
-      links: [
-        { label: "Features", href: "#" },
-        { label: "Pricing", href: "#" },
-        { label: "Changelog", href: "#" },
-        { label: "Roadmap", href: "#" },
-        { label: "Beta", href: "#" },
-      ],
+      heading: "Products",
+      links: ["Apps", "Workflows", "Database", "Mobile"],
     },
     {
-      heading: "Company",
-      links: [
-        { label: "About", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Press", href: "#" },
-        { label: "Partners", href: "#" },
-      ],
+      heading: "Solutions",
+      links: ["AI apps", "External apps", "Integrations", "Self-hosting"],
     },
     {
       heading: "Resources",
-      links: [
-        { label: "Documentation", href: "#" },
-        { label: "API Reference", href: "#" },
-        { label: "Guides", href: "#" },
-        { label: "Examples", href: "#" },
-        { label: "Status", href: "#" },
-      ],
+      links: ["Blog", "Reports"],
     },
     {
-      heading: "Legal",
-      links: [
-        { label: "Privacy Policy", href: "#" },
-        { label: "Terms of Service", href: "#" },
-        { label: "Cookie Policy", href: "#" },
-        { label: "Licenses", href: "#" },
-      ],
+      heading: "Developers",
+      links: ["Documentation", "Changelog", "Status", "Developer Network"],
+    },
+    {
+      heading: "Company",
+      links: ["About", "Careers", "Partners"],
     },
   ],
-  social: [
-    { icon: X, label: "Twitter", href: "#" },
-    { icon: Code2, label: "GitHub", href: "#" },
-    { icon: Globe, label: "LinkedIn", href: "#" },
-    { icon: AtSign, label: "Instagram", href: "#" },
+  cta: [
+    { label: "Start for free", primary: true },
+    { label: "Book a demo", primary: false },
   ],
-  copyright: "© 2024 Acme, Inc. All rights reserved.",
+  legal: ["Terms of use", "Privacy policy", "Security"],
+  copyright: "© Retool 2024",
 }
 
 export default function Footer_1() {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
+
+  const bg = dark ? "#1a1a1a" : "#f5f5f0"
+  const text = dark ? "#ffffff" : "#111111"
+  const muted = dark ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)"
+  const heading = dark ? "rgba(255,255,255,0.35)" : "rgba(0,0,0,0.35)"
+  const divider = dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"
+  const cream = dark ? "#e8e4d9" : "#1a1a1a"
+  const pillBorder = dark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)"
 
   return (
-    <div className={`h-full w-full ${dark ? "bg-[#0a0a0a] text-white" : "bg-white text-gray-900"}`}>
-      <footer className="max-w-6xl mx-auto px-6 py-16">
-        {/* Top: brand + columns */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 pb-12 border-b border-gray-200 dark:border-gray-800"
-          style={{ borderColor: dark ? "#1f1f1f" : "#e5e7eb" }}>
-          {/* Brand */}
-          <div className="md:col-span-1 flex flex-col gap-4">
-            <span className="text-lg font-semibold tracking-tight">{FOOTER_DATA.brand.name}</span>
-            <p className={`text-[13px] leading-relaxed ${dark ? "text-gray-400" : "text-gray-500"}`}>
-              {FOOTER_DATA.brand.description}
-            </p>
-          </div>
+    <div className="h-full w-full overflow-auto" style={{ background: bg, color: text, fontFamily: "Inter, sans-serif" }}>
 
-          {/* Link columns */}
-          {FOOTER_DATA.columns.map((col) => (
-            <div key={col.heading} className="flex flex-col gap-3">
-              <span className={`text-[11px] font-semibold uppercase tracking-widest ${dark ? "text-gray-500" : "text-gray-400"}`}>
+      {/* ── Top image panels ──────────────────────────────────────── */}
+      <div className="flex h-52 overflow-hidden">
+        {/* Left: blueprint grid */}
+        <div className="w-1/2 relative overflow-hidden" style={{ background: dark ? "#111" : "#e8e4d9" }}>
+          <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={dark ? "white" : "#333"} strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+        {/* Right: sky/cloud image */}
+        <div className="w-1/2 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #b8d4e8 0%, #daeaf5 40%, #f0f8ff 100%)" }}>
+          {/* Cloud shapes */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 opacity-90">
+            <svg viewBox="0 0 400 120" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
+              <ellipse cx="120" cy="100" rx="100" ry="50" fill="white" opacity="0.9"/>
+              <ellipse cx="200" cy="90" rx="130" ry="60" fill="white" opacity="0.95"/>
+              <ellipse cx="320" cy="105" rx="90" ry="45" fill="white" opacity="0.85"/>
+            </svg>
+          </div>
+          <ArrowUpRight size={18} className="absolute top-4 right-4" style={{ color: muted }} />
+        </div>
+      </div>
+
+      {/* ── Main footer body ──────────────────────────────────────── */}
+      <div className="px-8 pt-14 pb-10">
+
+        {/* 5-column link grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 pb-14" style={{ borderBottom: `1px solid ${divider}` }}>
+          {FOOTER_DATA.columns.map(col => (
+            <div key={col.heading}>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.15em] mb-5" style={{ color: heading }}>
                 {col.heading}
-              </span>
-              <ul className="flex flex-col gap-2">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className={`text-[13px] transition-colors ${dark ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900"}`}
-                    >
-                      {link.label}
+              </p>
+              <ul className="flex flex-col gap-3">
+                {col.links.map(link => (
+                  <li key={link}>
+                    <a href="#" className="text-[15px] font-medium transition-opacity hover:opacity-60" style={{ color: text }}>
+                      {link}
                     </a>
                   </li>
                 ))}
@@ -95,36 +102,63 @@ export default function Footer_1() {
           ))}
         </div>
 
-        {/* Bottom: copyright + social + toggle */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <span className={`text-[12px] ${dark ? "text-gray-500" : "text-gray-400"}`}>
-            {FOOTER_DATA.copyright}
-          </span>
+        {/* ── Bottom: wordmark + CTAs ───────────────────────────── */}
+        <div className="flex flex-col md:flex-row items-end justify-between gap-8 pt-10">
 
+          {/* Massive wordmark */}
           <div className="flex items-center gap-4">
-            {FOOTER_DATA.social.map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className={`transition-colors ${dark ? "text-gray-500 hover:text-white" : "text-gray-400 hover:text-gray-900"}`}
-              >
-                <Icon size={16} />
-              </a>
-            ))}
+            {/* Icon mark */}
+            <div className="w-16 h-16 rounded-lg flex items-center justify-center text-3xl font-black shrink-0" style={{ background: cream, color: bg }}>
+              ⊞
+            </div>
+            <span className="font-black tracking-tight leading-none" style={{ fontSize: "clamp(48px, 8cqw, 80px)", color: cream }}>
+              {FOOTER_DATA.brand.name}
+            </span>
+          </div>
 
-            <div className={`w-px h-4 ${dark ? "bg-gray-700" : "bg-gray-200"}`} />
+          {/* Right: CTAs + legal */}
+          <div className="flex flex-col gap-3 shrink-0">
+            {/* CTA buttons */}
+            <div className="flex flex-col gap-2">
+              {FOOTER_DATA.cta.map(btn => (
+                <button
+                  key={btn.label}
+                  className="px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-80"
+                  style={{
+                    border: `1px solid ${pillBorder}`,
+                    background: btn.primary ? cream : "transparent",
+                    color: btn.primary ? bg : text,
+                  }}
+                >
+                  {btn.label}
+                </button>
+              ))}
+            </div>
 
+            {/* Legal links */}
+            <div className="flex flex-col gap-1.5 mt-2">
+              {FOOTER_DATA.legal.map(item => (
+                <a key={item} href="#" className="text-[10px] uppercase tracking-widest transition-opacity hover:opacity-80" style={{ color: muted }}>
+                  {item}
+                </a>
+              ))}
+            </div>
+
+            <p className="text-[10px] uppercase tracking-widest mt-1" style={{ color: muted }}>
+              {FOOTER_DATA.copyright}
+            </p>
+
+            {/* Dark mode toggle */}
             <button
-              onClick={() => setDark(!dark)}
-              aria-label="Toggle dark mode"
-              className={`p-1.5 rounded-md transition-colors ${dark ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-400 hover:text-gray-900 hover:bg-gray-100"}`}
+              onClick={() => setDark(d => !d)}
+              className="self-start mt-1 p-1.5 rounded-md transition-opacity hover:opacity-70"
+              style={{ color: muted }}
             >
-              {dark ? <Sun size={15} /> : <Moon size={15} />}
+              {dark ? <Sun size={14} /> : <Moon size={14} />}
             </button>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   )
 }

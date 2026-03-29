@@ -1,147 +1,117 @@
 import { useState } from "react"
-import { X, Code2, Globe, AtSign, Video, Sun, Moon } from "lucide-react"
+import { Sun, Moon } from "lucide-react"
+
+// ─── Aurion SaaS style ────────────────────────────────────────────────────────
+// Deep navy #0a1628 bg, large glowing blue radial gradient at bottom (planet/horizon)
+// Top-left: circular icon + brand name + description
+// Right: 4 columns of links, no headings, small white text
+// No bottom bar — gradient glow dominates lower half
+// ─────────────────────────────────────────────────────────────────────────────
 
 const FOOTER_DATA = {
   brand: {
-    name: "Prism",
-    tagline: "Design. Build. Ship.",
-    description: "The all-in-one creative platform for modern product teams.",
+    name: "Aurion",
+    description: "Streamline your business's financial management with our intuitive, scalable SaaS platform.",
   },
-  links: [
-    { label: "Product", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Docs", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#" },
-  ],
-  social: [
-    { icon: X, label: "Twitter", href: "#" },
-    { icon: Code2, label: "GitHub", href: "#" },
-    { icon: Globe, label: "LinkedIn", href: "#" },
-    { icon: AtSign, label: "Instagram", href: "#" },
-    { icon: Video, label: "YouTube", href: "#" },
-  ],
-  newsletter: {
-    heading: "Get early access",
-    placeholder: "Enter your email",
-    cta: "Join waitlist",
-  },
-  copyright: "© 2024 Prism Inc.",
-  legal: [
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
+  columns: [
+    {
+      links: ["Home V.1", "Home V.2", "Home V.3", "Features"],
+    },
+    {
+      links: ["About", "Pricing V.1", "Pricing V.2", "Pricing V.3"],
+    },
+    {
+      links: ["Blog V.1", "Blog V.2", "Blog V.3", "Internal blog"],
+    },
+    {
+      links: ["Sign In", "Sign Up", "Product", "Categories"],
+    },
   ],
 }
 
+const NAVY = "#0a1628"
+
 export default function Footer_6() {
-  const [dark, setDark] = useState(false)
-  const [email, setEmail] = useState("")
+  const [dark, setDark] = useState(true)
+
+  const bg = dark ? NAVY : "#1a2a4a"
+  const text = dark ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.9)"
+  const muted = dark ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.45)"
 
   return (
-    <div className="h-full w-full">
-      <footer
-        className="relative overflow-hidden"
-        style={{
-          background: dark
-            ? "linear-gradient(135deg, #1a0533 0%, #0d1a3a 50%, #0a1628 100%)"
-            : "linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%)",
-        }}
-      >
-        {/* Decorative blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div
-            className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-20 blur-3xl"
-            style={{ background: dark ? "#7c3aed" : "#a78bfa" }}
-          />
-          <div
-            className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-20 blur-3xl"
-            style={{ background: dark ? "#2563eb" : "#93c5fd" }}
-          />
-        </div>
+    <div className="h-full w-full overflow-auto relative" style={{ background: bg, fontFamily: "Inter, sans-serif" }}>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-8 pt-16 pb-10">
-          {/* Top section */}
-          <div className="flex flex-col lg:flex-row gap-12 pb-12 border-b border-white/10">
-            {/* Brand */}
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-3xl font-black text-white tracking-tight">{FOOTER_DATA.brand.name}</h2>
-                  <p className="text-white/60 text-sm font-medium mt-0.5">{FOOTER_DATA.brand.tagline}</p>
-                </div>
-                <button
-                  onClick={() => setDark(!dark)}
-                  aria-label="Toggle dark mode"
-                  className="p-2 rounded-lg bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                >
-                  {dark ? <Sun size={16} /> : <Moon size={16} />}
-                </button>
+      {/* ── Content ───────────────────────────────────────────────── */}
+      <div className="relative z-10 px-8 pt-10 pb-0">
+        <div className="flex flex-col md:flex-row gap-10">
+
+          {/* Left: brand */}
+          <div className="md:w-64 shrink-0 flex flex-col gap-4">
+            {/* Icon */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0"
+                style={{ borderColor: "rgba(255,255,255,0.4)" }}>
+                <div className="w-2 h-2 rounded-full" style={{ background: "rgba(255,255,255,0.6)" }} />
               </div>
-              <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-                {FOOTER_DATA.brand.description}
-              </p>
+              <span className="text-base font-semibold" style={{ color: text }}>{FOOTER_DATA.brand.name}</span>
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: muted }}>
+              {FOOTER_DATA.brand.description}
+            </p>
+            <button onClick={() => setDark(d => !d)} className="self-start mt-2 transition-opacity hover:opacity-60" style={{ color: muted }}>
+              {dark ? <Sun size={13} /> : <Moon size={13} />}
+            </button>
+          </div>
 
-              {/* Social icons */}
-              <div className="flex items-center gap-3 mt-8">
-                {FOOTER_DATA.social.map(({ icon: Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={label}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
-                  >
-                    <Icon size={16} />
+          {/* Right: 4 link columns */}
+          <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {FOOTER_DATA.columns.map((col, ci) => (
+              <div key={ci} className="flex flex-col gap-3">
+                {col.links.map(link => (
+                  <a key={link} href="#"
+                    className="text-sm transition-opacity hover:opacity-80"
+                    style={{ color: muted }}>
+                    {link}
                   </a>
                 ))}
               </div>
-            </div>
-
-            {/* Newsletter */}
-            <div className="lg:w-80">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-white/40 mb-2">Newsletter</p>
-              <h3 className="text-xl font-bold text-white mb-4">{FOOTER_DATA.newsletter.heading}</h3>
-              <div className="flex flex-col gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={FOOTER_DATA.newsletter.placeholder}
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm outline-none focus:border-white/40 transition-colors"
-                />
-                <button className="w-full py-3 rounded-xl bg-white text-purple-700 font-semibold text-sm hover:bg-white/90 transition-colors">
-                  {FOOTER_DATA.newsletter.cta}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Nav links */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 py-10 border-b border-white/10">
-            {FOOTER_DATA.links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-white/60 hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
             ))}
           </div>
-
-          {/* Bottom */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8">
-            <span className="text-xs text-white/40">{FOOTER_DATA.copyright}</span>
-            <div className="flex items-center gap-5">
-              {FOOTER_DATA.legal.map((item) => (
-                <a key={item.label} href={item.href} className="text-xs text-white/40 hover:text-white/70 transition-colors">
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
-      </footer>
+      </div>
+
+      {/* ── Planet glow ───────────────────────────────────────────── */}
+      <div className="relative mt-8" style={{ height: 200, overflow: "hidden" }}>
+        {/* Outer glow */}
+        <div className="absolute left-1/2 -translate-x-1/2 rounded-full"
+          style={{
+            width: "140%",
+            height: 400,
+            bottom: -280,
+            background: "radial-gradient(ellipse at 50% 30%, #1e6fa8 0%, #0d3a6e 30%, #061428 60%, transparent 80%)",
+            filter: "blur(2px)",
+          }}
+        />
+        {/* Inner bright core */}
+        <div className="absolute left-1/2 -translate-x-1/2 rounded-full"
+          style={{
+            width: "80%",
+            height: 300,
+            bottom: -240,
+            background: "radial-gradient(ellipse at 50% 20%, #4db8ff 0%, #1a7abf 25%, #0a3d6e 55%, transparent 75%)",
+            opacity: 0.7,
+          }}
+        />
+        {/* Surface highlight */}
+        <div className="absolute left-1/2 -translate-x-1/2 rounded-full"
+          style={{
+            width: "60%",
+            height: 200,
+            bottom: -170,
+            background: "radial-gradient(ellipse at 50% 15%, rgba(120,200,255,0.5) 0%, rgba(30,100,180,0.3) 40%, transparent 70%)",
+          }}
+        />
+      </div>
     </div>
   )
 }

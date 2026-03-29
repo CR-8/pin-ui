@@ -1,160 +1,163 @@
 import { useState } from "react"
-import { X, Code2, Globe, Video, Sun, Moon } from "lucide-react"
+import { ArrowUpRight, Sun, Moon } from "lucide-react"
+
+// ─── Leeuwarder Golfclub style ────────────────────────────────────────────────
+// Cream top section with partner logos, dark rounded card footer below
+// Centered brand mark + name, contact left, social center, nav right
+// ─────────────────────────────────────────────────────────────────────────────
 
 const FOOTER_DATA = {
+  partners: {
+    heading: "Our proud partners",
+    cta: "Become a partner",
+    logos: ["Partner A", "Heineken", "NS Steden", "Lippe Wonen", "NIVO", "Sligro"],
+  },
   brand: {
-    name: "STUDIO",
-    tagline: "Where ideas become products.",
-    watermark: "STUDIO",
+    name: "Leeuwarder\nGolfclub",
+    tagline: "Where golf happiness begins",
   },
-  newsletter: {
-    heading: "Stay in the loop",
-    subheading: "Get the latest updates, articles, and resources delivered to your inbox.",
-    placeholder: "Enter your email",
-    cta: "Subscribe",
+  contact: {
+    heading: "Contact",
+    address: "Woelwijk 101,\n8926 XD Leeuwarden",
+    phone: "0511 - 43 22 99",
+    email: "info@leeuwardergolfclub.nl",
   },
-  columns: [
-    {
-      heading: "Navigate",
-      links: [
-        { label: "Home", href: "#" },
-        { label: "Work", href: "#" },
-        { label: "Services", href: "#" },
-        { label: "About", href: "#" },
-      ],
-    },
-    {
-      heading: "Services",
-      links: [
-        { label: "Design", href: "#" },
-        { label: "Development", href: "#" },
-        { label: "Branding", href: "#" },
-        { label: "Strategy", href: "#" },
-      ],
-    },
-    {
-      heading: "Connect",
-      links: [
-        { label: "Twitter", href: "#" },
-        { label: "LinkedIn", href: "#" },
-        { label: "Dribbble", href: "#" },
-        { label: "GitHub", href: "#" },
-      ],
-    },
-  ],
   social: [
-    { icon: X, label: "Twitter", href: "#" },
-    { icon: Code2, label: "GitHub", href: "#" },
-    { icon: Globe, label: "LinkedIn", href: "#" },
-    { icon: Video, label: "YouTube", href: "#" },
+    { label: "Facebook", href: "#" },
+    { label: "Instagram", href: "#" },
+    { label: "LinkedIn", href: "#" },
   ],
-  copyright: "© 2024 Studio. All rights reserved.",
+  cta: [
+    { label: "Reserve tee time", href: "#" },
+    { label: "Become a member", href: "#" },
+  ],
+  nav: {
+    heading: "Quick links",
+    columns: [
+      ["Our club", "For guests", "Start with Golf"],
+      ["The course", "Our events", "Contact"],
+    ],
+  },
+  legal: ["Cookies policy", "Privacy policy"],
+  copyright: "©2025",
 }
 
-export default function Footer_2() {
-  const [dark, setDark] = useState(true)
-  const [email, setEmail] = useState("")
+const GREEN = "#1a4a2e"
+const LIGHT_GREEN = "#2d7a4a"
+const ACCENT = "#00e676"
+const CREAM = "#f5f0d8"
 
-  const bg = dark ? "bg-[#0a0a0a]" : "bg-gray-50"
-  const text = dark ? "text-white" : "text-gray-900"
-  const muted = dark ? "text-gray-500" : "text-gray-400"
-  const inputBg = dark ? "bg-[#111] border-[#222] text-white placeholder-gray-600" : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
+export default function Footer_2() {
+  const [dark, setDark] = useState(false)
 
   return (
-    <div className={`h-full w-full ${bg} ${text}`}>
-      <footer className="relative overflow-hidden max-w-6xl mx-auto px-6 pt-20 pb-10">
-        {/* Watermark */}
-        <div
-          className={`absolute inset-0 flex items-center justify-center pointer-events-none select-none`}
-          aria-hidden="true"
-        >
-          <span
-            className="text-[clamp(80px,18vw,200px)] font-black tracking-tighter leading-none"
-            style={{
-              background: dark
-                ? "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
-                : "linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            {FOOTER_DATA.brand.watermark}
-          </span>
-        </div>
+    <div className="h-full w-full overflow-auto" style={{ background: dark ? "#111" : "#e8f4e8", fontFamily: "Inter, sans-serif" }}>
 
-        {/* Brand + newsletter */}
-        <div className="relative z-10 flex flex-col md:flex-row gap-12 pb-14 border-b" style={{ borderColor: dark ? "#1a1a1a" : "#e5e7eb" }}>
-          <div className="flex-1">
-            <h2
-              className="text-4xl font-black tracking-tight mb-2"
-              style={{
-                background: "linear-gradient(135deg, #a855f7 0%, #3b82f6 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              {FOOTER_DATA.brand.name}
-            </h2>
-            <p className={`text-sm ${muted}`}>{FOOTER_DATA.brand.tagline}</p>
-          </div>
-
-          {/* Newsletter */}
-          <div className="flex-1 max-w-md">
-            <p className={`text-xs font-semibold uppercase tracking-widest mb-1 ${muted}`}>Newsletter</p>
-            <h3 className={`text-lg font-semibold mb-1 ${text}`}>{FOOTER_DATA.newsletter.heading}</h3>
-            <p className={`text-sm mb-4 ${muted}`}>{FOOTER_DATA.newsletter.subheading}</p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={FOOTER_DATA.newsletter.placeholder}
-                className={`flex-1 text-sm px-4 py-2.5 rounded-lg border outline-none transition-colors ${inputBg}`}
-              />
-              <button className="px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-linear-to-r from-purple-500 to-blue-500 hover:opacity-90 transition-opacity shrink-0">
-                {FOOTER_DATA.newsletter.cta}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Columns */}
-        <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-8 py-12 border-b" style={{ borderColor: dark ? "#1a1a1a" : "#e5e7eb" }}>
-          {FOOTER_DATA.columns.map((col) => (
-            <div key={col.heading}>
-              <p className={`text-[11px] font-semibold uppercase tracking-widest mb-4 ${muted}`}>{col.heading}</p>
-              <ul className="flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className={`text-sm transition-colors ${dark ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900"}`}>
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <span className={`text-xs ${muted}`}>{FOOTER_DATA.copyright}</span>
-          <div className="flex items-center gap-4">
-            {FOOTER_DATA.social.map(({ icon: Icon, label, href }) => (
-              <a key={label} href={href} aria-label={label} className={`transition-colors ${dark ? "text-gray-600 hover:text-white" : "text-gray-400 hover:text-gray-900"}`}>
-                <Icon size={17} />
-              </a>
-            ))}
-            <button
-              onClick={() => setDark(!dark)}
-              aria-label="Toggle dark mode"
-              className={`p-1.5 rounded-md transition-colors ${dark ? "text-gray-500 hover:text-white hover:bg-white/10" : "text-gray-400 hover:text-gray-900 hover:bg-gray-100"}`}
-            >
-              {dark ? <Sun size={15} /> : <Moon size={15} />}
+      {/* ── Partners section (cream/light bg) ─────────────────────── */}
+      <div className="px-8 py-12" style={{ background: dark ? "#1a1a1a" : CREAM }}>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-center text-2xl font-bold mb-4" style={{ color: dark ? "white" : "#111" }}>
+            {FOOTER_DATA.partners.heading}
+          </h2>
+          <div className="flex justify-center mb-8">
+            <button className="flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border transition-opacity hover:opacity-70"
+              style={{ borderColor: dark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)", color: dark ? "white" : "#111" }}>
+              {FOOTER_DATA.partners.cta}
+              <span className="w-4 h-4 rounded-full flex items-center justify-center text-xs" style={{ background: ACCENT, color: "#111" }}>→</span>
             </button>
           </div>
+          {/* Partner logo cards */}
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {FOOTER_DATA.partners.logos.map(logo => (
+              <div key={logo} className="shrink-0 w-36 h-24 rounded-xl flex items-center justify-center text-sm font-semibold text-white/70"
+                style={{ background: GREEN }}>
+                {logo}
+              </div>
+            ))}
+          </div>
         </div>
-      </footer>
+      </div>
+
+      {/* ── Main footer card ──────────────────────────────────────── */}
+      <div className="px-4 pb-4">
+        <div className="rounded-2xl overflow-hidden" style={{ background: dark ? "#1c1c1c" : "#1e1e1e" }}>
+          <div className="px-8 pt-10 pb-8">
+
+            {/* Brand center */}
+            <div className="flex flex-col items-center mb-10">
+              {/* Illustrated mark placeholder */}
+              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center text-2xl"
+                style={{ background: "linear-gradient(135deg, #00e676, #1a4a2e)" }}>
+                ✦
+              </div>
+              <h2 className="text-3xl font-black text-white text-center leading-tight whitespace-pre-line mb-1">
+                {FOOTER_DATA.brand.name}
+              </h2>
+              <p className="text-sm italic text-white/50">{FOOTER_DATA.brand.tagline}</p>
+            </div>
+
+            {/* Three-column bottom layout */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+              {/* Left: Contact + social */}
+              <div className="flex flex-col gap-5">
+                <div>
+                  <p className="text-sm font-bold text-white mb-2">{FOOTER_DATA.contact.heading}</p>
+                  <p className="text-sm text-white/50 whitespace-pre-line leading-relaxed">{FOOTER_DATA.contact.address}</p>
+                  <p className="text-sm text-white/50 mt-1">{FOOTER_DATA.contact.phone}</p>
+                  <a href="#" className="text-sm underline mt-1 block" style={{ color: ACCENT }}>{FOOTER_DATA.contact.email}</a>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {FOOTER_DATA.social.map(s => (
+                    <a key={s.label} href={s.href} className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+                      {s.label} <ArrowUpRight size={12} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Center: CTA buttons */}
+              <div className="flex flex-col items-center justify-center gap-3">
+                {FOOTER_DATA.cta.map(btn => (
+                  <a key={btn.label} href={btn.href}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-80"
+                    style={{ background: LIGHT_GREEN }}>
+                    {btn.label}
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs" style={{ background: ACCENT, color: "#111" }}>→</span>
+                  </a>
+                ))}
+              </div>
+
+              {/* Right: Quick nav */}
+              <div>
+                <p className="text-sm font-bold text-white mb-3">{FOOTER_DATA.nav.heading}</p>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+                  {FOOTER_DATA.nav.columns.flat().map(link => (
+                    <a key={link} href="#" className="text-sm text-white/50 hover:text-white transition-colors">{link}</a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom bar */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-8 pt-6 border-t border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="text-xs px-2 py-0.5 rounded font-bold" style={{ background: ACCENT, color: "#111" }}>7.0</span>
+                <span className="text-xs text-white/30">Leadingcourses score</span>
+              </div>
+              <div className="flex items-center gap-4">
+                {FOOTER_DATA.legal.map(l => (
+                  <a key={l} href="#" className="text-xs text-white/30 hover:text-white/60 transition-colors">{l}</a>
+                ))}
+                <span className="text-xs text-white/30">{FOOTER_DATA.copyright}</span>
+                <button onClick={() => setDark(d => !d)} className="text-white/30 hover:text-white/60 transition-colors">
+                  {dark ? <Sun size={13} /> : <Moon size={13} />}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
